@@ -6,7 +6,6 @@ router = APIRouter(
     tags=["users"], responses={404: {"description": "Not found"}}
 )
 
-
 @router.get(
     "/api/v1/users",
     status_code=status.HTTP_200_OK,
