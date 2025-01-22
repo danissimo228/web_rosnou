@@ -37,3 +37,9 @@ class UserService(Service):
     async def create_user(self, data: Dict[str, int | str]) -> Dict[str, int | str]:
         users.append(data)
         return data
+    
+    async def update_user(self, data: Dict[str, int | str]) -> Dict[str, int | str]:
+        result = await self.delete_user(user_id=data["id"])
+        if not result.get("error"):
+            users.append(data)
+        return result

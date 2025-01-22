@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 
-class CreateUserRequestSchema(BaseModel):
+class UserRequestSchema(BaseModel):
     id: int = Field(title="Идентификатор пользователя",)
     username: str = Field(
         title="Имя пользователя", min_length=3, max_length=20,
