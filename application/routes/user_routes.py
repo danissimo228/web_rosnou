@@ -38,5 +38,5 @@ async def create_user(data: UserRequestSchema, container: Container = Depends(),
     status_code=status.HTTP_200_OK,
     description="Обновление пользователя по id",
 )
-async def cupdate_user(data: UserRequestSchema, container: Container = Depends(),):
+async def update_user(data: UserRequestSchema, container: Container = Depends(),):
     return await container.user_service.update_user(data=data.model_dump())

@@ -1,5 +1,6 @@
 from typing import List, Dict
 from application.services.base import Service
+import sqlite3
 
 # временное хранилище
 users = [
@@ -23,9 +24,32 @@ users = [
     }
 ]
 
+conn = sqlite3.connect('example.db')
+cursor = conn.cursor()
+
+cursor.execute(
+"""
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL,
+    password TEXT NOT NULL,
+    email TEXT NOT NULL
+)
+"""
+)
+cursor.execute(
+    "INSERT INTO users (username, password, email) VALUES (?, ?, ?)", ('Alice', 'qwerty', 'alice@gmail.com')
+)
+
+cursor.execute(
+    "INSERT INTO users (username, password, email) VALUES (?, ?, ?)", ('Bob', 'bob2007', 'bob2007@gmail.com')
+)
+conn.commit()
+
 class UserService(Service):
     async def get_all(self,) -> List[Dict[str, int | str]]:
-        return users
+        cursor.execute('SELECT * FROM users')
+        return cursor.fetchall()
     
     async def delete_user(self, user_id: int) -> Dict[str, int]:
         for user in users:
