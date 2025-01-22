@@ -38,11 +38,12 @@ CREATE TABLE IF NOT EXISTS users (
 """
 )
 cursor.execute(
-    "INSERT INTO users (username, password, email) VALUES (?, ?, ?)", ('Alice', 'qwerty', 'alice@gmail.com')
+    "INSERT INTO users (username, password, email) VALUES (?, ?, ?)", 
+    ('Alice', 'qwerty', 'alice@gmail.com')
 )
-
 cursor.execute(
-    "INSERT INTO users (username, password, email) VALUES (?, ?, ?)", ('Bob', 'bob2007', 'bob2007@gmail.com')
+    "INSERT INTO users (username, password, email) VALUES (?, ?, ?)", 
+    ('Bob', 'bob2007', 'bob2007@gmail.com')
 )
 conn.commit()
 
