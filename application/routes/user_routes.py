@@ -2,16 +2,17 @@ from application.services import Container
 from fastapi import APIRouter, Depends, status
 from application.schemas.user_schema import UserRequestSchema
 
-router = APIRouter(
-    tags=["users"], responses={404: {"description": "Not found"}}
-)
+router = APIRouter(tags=["users"], responses={404: {"description": "Not found"}})
+
 
 @router.get(
     "/api/v1/users",
     status_code=status.HTTP_200_OK,
     description="Просмотр всех пользователей",
 )
-async def get_users(container: Container = Depends(),):
+async def get_users(
+    container: Container = Depends(),
+):
     return await container.user_service.get_all()
 
 
@@ -20,7 +21,10 @@ async def get_users(container: Container = Depends(),):
     status_code=status.HTTP_200_OK,
     description="Удаление пользователя",
 )
-async def delete_user(user_id: int, container: Container = Depends(),):
+async def delete_user(
+    user_id: str,
+    container: Container = Depends(),
+):
     return await container.user_service.delete_user(user_id=user_id)
 
 
@@ -29,7 +33,10 @@ async def delete_user(user_id: int, container: Container = Depends(),):
     status_code=status.HTTP_200_OK,
     description="Создание пользователя",
 )
-async def create_user(data: UserRequestSchema, container: Container = Depends(),):
+async def create_user(
+    data: UserRequestSchema,
+    container: Container = Depends(),
+):
     return await container.user_service.create_user(data=data.model_dump())
 
 
@@ -38,5 +45,8 @@ async def create_user(data: UserRequestSchema, container: Container = Depends(),
     status_code=status.HTTP_200_OK,
     description="Обновление пользователя по id",
 )
-async def update_user(data: UserRequestSchema, container: Container = Depends(),):
+async def update_user(
+    data: UserRequestSchema,
+    container: Container = Depends(),
+):
     return await container.user_service.update_user(data=data.model_dump())

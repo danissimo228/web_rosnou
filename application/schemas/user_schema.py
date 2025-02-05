@@ -1,15 +1,24 @@
 from pydantic import BaseModel, Field
 
+
 class UserRequestSchema(BaseModel):
-    id: int = Field(title="Идентификатор пользователя",)
+    id: str = Field(
+        title="Идентификатор пользователя",
+    )
     username: str = Field(
-        title="Имя пользователя", min_length=3, max_length=20,
+        title="Имя пользователя",
+        min_length=3,
+        max_length=20,
     )
     password: str = Field(
-        title="Пароль пользователя", min_length=3, max_length=20,
+        title="Пароль пользователя",
+        min_length=3,
+        max_length=20,
     )
     email: str = Field(
-        title="Email пользователя", min_length=7, max_length=30,
+        title="Email пользователя",
+        min_length=7,
+        max_length=30,
     )
 
     class Config:
