@@ -1,7 +1,10 @@
+import logging
 from typing import List, Dict
 from sqlalchemy import select, delete, update
 from application.models.user_model import User
 from application.services.base import Service
+
+logger = logging.getLogger(__name__)
 
 
 class UserService(Service):
@@ -22,8 +25,10 @@ class UserService(Service):
         )
         deleted_user = deleted_user.scalar()
         if not deleted_user:
+            logging.error("delete user: user not found")
             return {"error": 404}
 
+        logging.info("delete_user: success")
         deleted_user = {
             "id": deleted_user.id,
             "username": deleted_user.username,
@@ -36,6 +41,7 @@ class UserService(Service):
         new_user = User(**data)
         self.session.add(new_user)
         await self.session.commit()
+        logging.info("create_user: success")
         return data
 
     async def update_user(self, data: Dict[str, int | str]) -> Dict[str, int | str]:
@@ -44,8 +50,10 @@ class UserService(Service):
         )
         updated_user = updated_user.scalar()
         if not updated_user:
+            logging.error("update_user: user not found")
             return {"error": 404}
 
+        logging.info("update_user: success")
         return {
             "id": updated_user.id,
             "username": updated_user.username,
